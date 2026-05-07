@@ -10,8 +10,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #0a1f20;
   color: #fff;
+  overflow-x: hidden;
 }
 
 #root {
   min-height: 100vh;
 }
+
+/* Smooth scrolling */
+html { scroll-behavior: smooth; }
+
+/* Better tap targets on mobile */
+button, a { -webkit-tap-highlight-color: transparent; }

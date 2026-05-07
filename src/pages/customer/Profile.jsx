@@ -20,7 +20,7 @@ export default function CustomerProfile() {
         <p>Manage your account information</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }} className="admin-two-col">
         <div className="card">
           <h3>Personal Information</h3>
           {saved && <div className="success-msg">✓ Profile updated successfully</div>}

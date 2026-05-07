@@ -13,7 +13,7 @@ export default function Wallet() {
         <p>Track your Vasudha Coins</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 28 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 28 }} className="wallet-top-grid">
         <div className="card" style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)', border: 'none', textAlign: 'center' }}>
           <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.8)', marginBottom: 8 }}>Available Balance</div>
           <div style={{ fontSize: 52, fontWeight: 800, color: '#fff', lineHeight: 1 }}>{user.coins.toLocaleString()}</div>
@@ -38,6 +38,7 @@ export default function Wallet() {
         {transactions.length === 0 ? (
           <p style={{ color: 'rgba(255,255,255,0.4)', textAlign: 'center', padding: '20px' }}>No transactions yet</p>
         ) : (
+          <div className="table-wrap">
           <table>
             <thead><tr><th>Description</th><th>Date</th><th>Coins</th></tr></thead>
             <tbody>
@@ -50,12 +51,13 @@ export default function Wallet() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
 
       <div className="card" style={{ background: 'rgba(139,92,246,0.08)', borderColor: 'rgba(139,92,246,0.2)' }}>
         <h3>💡 How to Earn More Coins</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginTop: 8 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginTop: 8 }} className="earn-grid">
           {[
             { icon: '🛒', title: 'Purchase Products', desc: '1 coin per ₹100 spent' },
             { icon: '👥', title: 'Refer Friends', desc: '50 coins per referral' },

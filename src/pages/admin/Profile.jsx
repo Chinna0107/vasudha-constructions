@@ -19,7 +19,7 @@ export default function AdminProfile() {
         <p>Manage your administrator account</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }} className="admin-two-col">
         <div className="card">
           <div style={{ textAlign: 'center', marginBottom: 28 }}>
             <div style={{ width: 80, height: 80, background: 'linear-gradient(135deg, #f59e0b, #d97706)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, fontWeight: 800, color: '#fff', margin: '0 auto 16px', boxShadow: '0 8px 24px rgba(245,158,11,0.4)' }}>

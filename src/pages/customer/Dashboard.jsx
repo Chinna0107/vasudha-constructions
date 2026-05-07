@@ -41,6 +41,7 @@ export default function CustomerDashboard() {
         {orders.length === 0 ? (
           <p style={{ color: 'rgba(255,255,255,0.4)', textAlign: 'center', padding: '20px' }}>No orders yet</p>
         ) : (
+          <div className="table-wrap">
           <table>
             <thead><tr><th>Order ID</th><th>Item</th><th>Amount</th><th>Coins Earned</th><th>Status</th></tr></thead>
             <tbody>
@@ -55,6 +56,7 @@ export default function CustomerDashboard() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
 

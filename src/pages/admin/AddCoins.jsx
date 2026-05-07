@@ -24,7 +24,7 @@ export default function AddCoins() {
         <p>Credit coins to customer accounts</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }} className="admin-two-col">
         <div className="card">
           <h3>Add Coins</h3>
           {success && <div className="success-msg">{success}</div>}
@@ -81,34 +81,36 @@ export default function AddCoins() {
 
       <div className="card">
         <h3>Customer Coin Balances</h3>
-        <table>
-          <thead><tr><th>Customer</th><th>Current Balance</th><th>Tier</th><th>Actions</th></tr></thead>
-          <tbody>
-            {customers.map(c => (
-              <tr key={c.id}>
-                <td>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{ width: 32, height: 32, background: 'linear-gradient(135deg, #f59e0b, #d97706)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 13 }}>
-                      {c.name[0]}
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th>Customer</th><th>Current Balance</th><th>Tier</th><th>Actions</th></tr></thead>
+            <tbody>
+              {customers.map(c => (
+                <tr key={c.id}>
+                  <td>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <div style={{ width: 32, height: 32, background: 'linear-gradient(135deg, #f59e0b, #d97706)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 13 }}>
+                        {c.name[0]}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 600, fontSize: 14 }}>{c.name}</div>
+                        <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>{c.email}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div style={{ fontWeight: 600, fontSize: 14 }}>{c.name}</div>
-                      <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>{c.email}</div>
-                    </div>
-                  </div>
-                </td>
-                <td><span className="coins-badge">🪙 {c.coins}</span></td>
-                <td><span className={`badge ${c.coins >= 1000 ? 'badge-yellow' : 'badge-blue'}`}>{c.coins >= 1000 ? 'Gold' : 'Silver'}</span></td>
-                <td>
-                  <button className="btn btn-outline" style={{ padding: '6px 14px', fontSize: 12 }}
-                    onClick={() => setForm({ customerId: c.id.toString(), amount: '' })}>
-                    Add Coins
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                  </td>
+                  <td><span className="coins-badge">🪙 {c.coins}</span></td>
+                  <td><span className={`badge ${c.coins >= 1000 ? 'badge-yellow' : 'badge-blue'}`}>{c.coins >= 1000 ? 'Gold' : 'Silver'}</span></td>
+                  <td>
+                    <button className="btn btn-outline" style={{ padding: '6px 14px', fontSize: 12 }}
+                      onClick={() => setForm({ customerId: c.id.toString(), amount: '' })}>
+                      Add Coins
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </Layout>
   );

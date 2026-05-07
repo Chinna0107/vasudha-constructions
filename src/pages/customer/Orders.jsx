@@ -38,6 +38,7 @@ export default function Orders() {
             <p style={{ color: 'rgba(255,255,255,0.4)' }}>No orders yet. Start shopping!</p>
           </div>
         ) : (
+          <div className="table-wrap">
           <table>
             <thead><tr><th>Order ID</th><th>Item</th><th>Date</th><th>Amount</th><th>Coins</th><th>Status</th></tr></thead>
             <tbody>
@@ -53,6 +54,7 @@ export default function Orders() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
     </Layout>

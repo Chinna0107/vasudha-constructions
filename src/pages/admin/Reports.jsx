@@ -43,7 +43,7 @@ export default function Reports() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }} className="admin-two-col">
         <div className="card">
           <h3>Monthly Revenue</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 8 }}>
@@ -66,6 +66,7 @@ export default function Reports() {
 
         <div className="card">
           <h3>Order Details</h3>
+          <div className="table-wrap">
           <table>
             <thead><tr><th>Order ID</th><th>Amount</th><th>Coins</th></tr></thead>
             <tbody>
@@ -78,11 +79,13 @@ export default function Reports() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
 
       <div className="card">
         <h3>Customer Acquisition</h3>
+        <div className="table-wrap">
         <table>
           <thead><tr><th>Customer</th><th>Joined</th><th>Total Orders</th><th>Total Spent</th><th>Coins Balance</th></tr></thead>
           <tbody>
@@ -101,6 +104,7 @@ export default function Reports() {
             })}
           </tbody>
         </table>
+        </div>
       </div>
     </Layout>
   );

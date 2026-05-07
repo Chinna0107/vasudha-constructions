@@ -39,16 +39,17 @@ export default function Customers() {
       </div>
 
       <div className="card">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', gap: 12 }}>
           <h3 style={{ margin: 0 }}>All Customers</h3>
           <input
             type="text"
             placeholder="Search customers..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            style={{ padding: '9px 14px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8, color: '#fff', fontSize: 14, outline: 'none', width: 220 }}
+            style={{ padding: '9px 14px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8, color: '#fff', fontSize: 14, outline: 'none', width: '100%', maxWidth: 220 }}
           />
         </div>
+        <div className="table-wrap">
         <table>
           <thead>
             <tr><th>Customer</th><th>Phone</th><th>Joined</th><th>Orders</th><th>Coins</th><th>Tier</th></tr>
@@ -76,6 +77,7 @@ export default function Customers() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </Layout>
   );
