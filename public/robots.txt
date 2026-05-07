@@ -1,0 +1,15 @@
+# Vasudha Construction Materials - robots.txt
+# https://vasudhaconstructionmaterials.in
+
+User-agent: *
+Allow: /
+Allow: /login
+Allow: /signup
+Disallow: /customer/
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://vasudhaconstructionmaterials.in/sitemap.xml
+
+# Crawl delay (optional - helps prevent server overload)
+Crawl-delay: 1
