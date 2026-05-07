@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import logoImg from '../../assets/logo.jpeg';
+const logoImg = '/logo.jpeg';
 import { RiMailLine, RiLockLine, RiUserLine, RiPhoneLine, RiMapPinLine, RiArrowRightLine, RiCheckLine, RiShieldCheckLine } from 'react-icons/ri';
 import './Auth.css';
 

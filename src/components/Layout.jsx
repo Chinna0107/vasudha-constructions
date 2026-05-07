@@ -1,4 +1,4 @@
-import logoImg from '../assets/logo.jpeg';
+const logoImg = '/logo.jpeg';
 
 export default function Layout({ children }) {
   return (

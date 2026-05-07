@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import logoImg from './assets/logo.jpeg';
+const logoImg = '/logo.jpeg';
 import './components/Layout.css';
 
 import {
@@ -13,6 +13,8 @@ import {
   RiBarChartFill, RiBarChartLine,
   RiLogoutBoxLine,
   RiShieldUserFill,
+  RiImageFill, RiImageLine,
+  RiPriceTag3Fill, RiPriceTag3Line,
 } from 'react-icons/ri';
 
 import Login from './pages/auth/Login';
@@ -20,22 +22,26 @@ import Signup from './pages/auth/Signup';
 import CustomerDashboard from './pages/customer/Dashboard';
 import Wallet from './pages/customer/Wallet';
 import CustomerProfile from './pages/customer/Profile';
+import CustomerOffers from './pages/customer/Offers';
 import AdminDashboard from './pages/admin/Dashboard';
 import Customers from './pages/admin/Customers';
 import AddCoins from './pages/admin/AddCoins';
 import Reports from './pages/admin/Reports';
 import AdminProfile from './pages/admin/Profile';
+import AdminOffers from './pages/admin/Offers';
 
 const customerNav = [
   { to: '/customer/dashboard', label: 'Dashboard', icon: <RiDashboardLine size={20}/>, activeIcon: <RiDashboardFill size={20}/> },
-  { to: '/customer/wallet',    label: 'Wallet',    icon: <RiWallet3Line size={20}/>,  activeIcon: <RiWallet3Fill size={20}/> },
-  { to: '/customer/profile',   label: 'Profile',   icon: <RiUserLine size={20}/>,     activeIcon: <RiUserFill size={20}/> },
+  { to: '/customer/offers',    label: 'Offers',    icon: <RiPriceTag3Line size={20}/>, activeIcon: <RiPriceTag3Fill size={20}/> },
+  { to: '/customer/wallet',    label: 'Wallet',    icon: <RiWallet3Line size={20}/>,   activeIcon: <RiWallet3Fill size={20}/> },
+  { to: '/customer/profile',   label: 'Profile',   icon: <RiUserLine size={20}/>,      activeIcon: <RiUserFill size={20}/> },
 ];
 
 const adminNav = [
   { to: '/admin/dashboard',  label: 'Dashboard', icon: <RiDashboardLine size={20}/>, activeIcon: <RiDashboardFill size={20}/> },
   { to: '/admin/customers',  label: 'Customers', icon: <RiTeamLine size={20}/>,      activeIcon: <RiTeamFill size={20}/> },
   { to: '/admin/add-coins',  label: 'Add Coins', icon: <RiCoinsLine size={20}/>,     activeIcon: <RiCoinsFill size={20}/> },
+  { to: '/admin/offers',     label: 'Offers',    icon: <RiImageLine size={20}/>,     activeIcon: <RiImageFill size={20}/> },
   { to: '/admin/reports',    label: 'Reports',   icon: <RiBarChartLine size={20}/>,  activeIcon: <RiBarChartFill size={20}/> },
   { to: '/admin/profile',    label: 'Profile',   icon: <RiUserLine size={20}/>,      activeIcon: <RiUserFill size={20}/> },
 ];
@@ -120,12 +126,14 @@ function AppShell() {
           <Route path="/signup" element={user ? <Navigate to="/customer/dashboard" /> : <Signup />} />
 
           <Route path="/customer/dashboard" element={<ProtectedRoute role="customer"><CustomerDashboard /></ProtectedRoute>} />
+          <Route path="/customer/offers"    element={<ProtectedRoute role="customer"><CustomerOffers /></ProtectedRoute>} />
           <Route path="/customer/wallet"    element={<ProtectedRoute role="customer"><Wallet /></ProtectedRoute>} />
           <Route path="/customer/profile"   element={<ProtectedRoute role="customer"><CustomerProfile /></ProtectedRoute>} />
 
           <Route path="/admin/dashboard" element={<ProtectedRoute role="admin"><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/customers" element={<ProtectedRoute role="admin"><Customers /></ProtectedRoute>} />
           <Route path="/admin/add-coins" element={<ProtectedRoute role="admin"><AddCoins /></ProtectedRoute>} />
+          <Route path="/admin/offers"    element={<ProtectedRoute role="admin"><AdminOffers /></ProtectedRoute>} />
           <Route path="/admin/reports"   element={<ProtectedRoute role="admin"><Reports /></ProtectedRoute>} />
           <Route path="/admin/profile"   element={<ProtectedRoute role="admin"><AdminProfile /></ProtectedRoute>} />
 
