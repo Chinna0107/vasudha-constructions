@@ -12,7 +12,7 @@ export default function Orders() {
         <p>View your order history</p>
       </div>
 
-      <div className="stats-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+      <div className="stats-grid">
         <div className="stat-card blue">
           <div className="stat-icon">📦</div>
           <div className="stat-value">{orders.length}</div>
@@ -33,28 +33,46 @@ export default function Orders() {
       <div className="card">
         <h3>Order History</h3>
         {orders.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '40px' }}>
-            <div style={{ fontSize: 48, marginBottom: 12 }}>📦</div>
-            <p style={{ color: 'rgba(255,255,255,0.4)' }}>No orders yet. Start shopping!</p>
+          <div className="empty-state">
+            <div className="empty-state-icon">📦</div>
+            <p>No orders yet. Start shopping!</p>
           </div>
         ) : (
-          <div className="table-wrap">
-          <table>
-            <thead><tr><th>Order ID</th><th>Item</th><th>Date</th><th>Amount</th><th>Coins</th><th>Status</th></tr></thead>
-            <tbody>
+          <>
+            <div className="table-wrap desktop-only">
+              <table>
+                <thead><tr><th>Order ID</th><th>Item</th><th>Date</th><th>Amount</th><th>Coins</th><th>Status</th></tr></thead>
+                <tbody>
+                  {orders.map(o => (
+                    <tr key={o.id}>
+                      <td className="td-gold fw-bold">{o.id}</td>
+                      <td>{o.item}</td>
+                      <td className="td-muted">{o.date}</td>
+                      <td className="fw-bold">₹{o.amount.toLocaleString()}</td>
+                      <td><span className="coins-badge">🪙 {o.coins}</span></td>
+                      <td><span className="badge badge-green">{o.status}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mobile-only">
               {orders.map(o => (
-                <tr key={o.id}>
-                  <td style={{ color: '#f59e0b', fontWeight: 600 }}>{o.id}</td>
-                  <td>{o.item}</td>
-                  <td style={{ color: 'rgba(255,255,255,0.45)' }}>{o.date}</td>
-                  <td style={{ fontWeight: 600 }}>₹{o.amount.toLocaleString()}</td>
-                  <td><span className="coins-badge">🪙 {o.coins}</span></td>
-                  <td><span className="badge badge-green">{o.status}</span></td>
-                </tr>
+                <div key={o.id} className="list-card">
+                  <div className="list-card-row">
+                    <span className="td-gold fw-bold">{o.id}</span>
+                    <span className="badge badge-green">{o.status}</span>
+                  </div>
+                  <div className="list-card-title">{o.item}</div>
+                  <div className="td-muted" style={{ fontSize: 12 }}>{o.date}</div>
+                  <div className="list-card-row" style={{ marginTop: 6 }}>
+                    <span className="fw-bold">₹{o.amount.toLocaleString()}</span>
+                    <span className="coins-badge">🪙 {o.coins}</span>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
-          </div>
+            </div>
+          </>
         )}
       </div>
     </Layout>

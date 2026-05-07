@@ -2,6 +2,13 @@ import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import Layout from '../../components/Layout';
 
+const QUICK = [
+  { label: 'Bonus 100 Coins', amount: 100 },
+  { label: 'Bonus 250 Coins', amount: 250 },
+  { label: 'Bonus 500 Coins', amount: 500 },
+  { label: 'Bonus 1000 Coins', amount: 1000 },
+];
+
 export default function AddCoins() {
   const { customers, addCoins } = useAuth();
   const [form, setForm] = useState({ customerId: '', amount: '' });
@@ -24,7 +31,7 @@ export default function AddCoins() {
         <p>Credit coins to customer accounts</p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }} className="admin-two-col">
+      <div className="two-col-grid">
         <div className="card">
           <h3>Add Coins</h3>
           {success && <div className="success-msg">{success}</div>}
@@ -47,33 +54,17 @@ export default function AddCoins() {
           </form>
         </div>
 
-        <div>
-          <div className="card" style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.12), rgba(217,119,6,0.08))', borderColor: 'rgba(245,158,11,0.2)' }}>
+        <div className="col-stack">
+          <div className="card accent-card">
             <h3>Quick Actions</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 16 }}>
-              {[
-                { label: 'Bonus 100 Coins', amount: 100 },
-                { label: 'Bonus 250 Coins', amount: 250 },
-                { label: 'Bonus 500 Coins', amount: 500 },
-                { label: 'Bonus 1000 Coins', amount: 1000 },
-              ].map(item => (
-                <button
-                  key={item.amount}
-                  className="btn btn-outline"
-                  style={{ width: '100%', textAlign: 'left', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-                  onClick={() => setForm({ ...form, amount: item.amount.toString() })}
-                >
+            <div className="quick-actions">
+              {QUICK.map(item => (
+                <button key={item.amount} className="btn btn-outline quick-btn"
+                  onClick={() => setForm({ ...form, amount: item.amount.toString() })}>
                   <span>{item.label}</span>
                   <span className="coins-badge">🪙 {item.amount}</span>
                 </button>
               ))}
-            </div>
-          </div>
-
-          <div className="card" style={{ marginTop: 24 }}>
-            <h3>Recent Additions</h3>
-            <div style={{ color: 'rgba(255,255,255,0.4)', textAlign: 'center', padding: '20px', fontSize: 14 }}>
-              No recent coin additions
             </div>
           </div>
         </div>
@@ -81,20 +72,18 @@ export default function AddCoins() {
 
       <div className="card">
         <h3>Customer Coin Balances</h3>
-        <div className="table-wrap">
+        <div className="table-wrap desktop-only">
           <table>
-            <thead><tr><th>Customer</th><th>Current Balance</th><th>Tier</th><th>Actions</th></tr></thead>
+            <thead><tr><th>Customer</th><th>Balance</th><th>Tier</th><th>Action</th></tr></thead>
             <tbody>
               {customers.map(c => (
                 <tr key={c.id}>
                   <td>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div style={{ width: 32, height: 32, background: 'linear-gradient(135deg, #f59e0b, #d97706)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 13 }}>
-                        {c.name[0]}
-                      </div>
+                    <div className="customer-cell">
+                      <div className="avatar-sm">{c.name[0]}</div>
                       <div>
-                        <div style={{ fontWeight: 600, fontSize: 14 }}>{c.name}</div>
-                        <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>{c.email}</div>
+                        <div className="fw-bold" style={{ fontSize: 14 }}>{c.name}</div>
+                        <div className="td-muted" style={{ fontSize: 12 }}>{c.email}</div>
                       </div>
                     </div>
                   </td>
@@ -110,6 +99,26 @@ export default function AddCoins() {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="mobile-only">
+          {customers.map(c => (
+            <div key={c.id} className="list-card">
+              <div className="list-card-row">
+                <div className="customer-cell">
+                  <div className="avatar-sm">{c.name[0]}</div>
+                  <span className="fw-bold">{c.name}</span>
+                </div>
+                <span className={`badge ${c.coins >= 1000 ? 'badge-yellow' : 'badge-blue'}`}>{c.coins >= 1000 ? 'Gold' : 'Silver'}</span>
+              </div>
+              <div className="list-card-row" style={{ marginTop: 8 }}>
+                <span className="coins-badge">🪙 {c.coins}</span>
+                <button className="btn btn-outline" style={{ padding: '5px 12px', fontSize: 12 }}
+                  onClick={() => setForm({ customerId: c.id.toString(), amount: '' })}>
+                  Add Coins
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </Layout>

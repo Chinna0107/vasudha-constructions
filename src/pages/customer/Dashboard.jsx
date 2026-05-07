@@ -39,37 +39,52 @@ export default function CustomerDashboard() {
       <div className="card">
         <h3>Recent Orders</h3>
         {orders.length === 0 ? (
-          <p style={{ color: 'rgba(255,255,255,0.4)', textAlign: 'center', padding: '20px' }}>No orders yet</p>
+          <p className="empty-msg">No orders yet</p>
         ) : (
-          <div className="table-wrap">
-          <table>
-            <thead><tr><th>Order ID</th><th>Item</th><th>Amount</th><th>Coins Earned</th><th>Status</th></tr></thead>
-            <tbody>
+          <>
+            <div className="table-wrap desktop-only">
+              <table>
+                <thead><tr><th>Order ID</th><th>Item</th><th>Amount</th><th>Coins</th><th>Status</th></tr></thead>
+                <tbody>
+                  {orders.slice(-3).reverse().map(o => (
+                    <tr key={o.id}>
+                      <td className="td-gold">{o.id}</td>
+                      <td>{o.item}</td>
+                      <td>₹{o.amount.toLocaleString()}</td>
+                      <td><span className="coins-badge">🪙 {o.coins}</span></td>
+                      <td><span className="badge badge-green">{o.status}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mobile-only">
               {orders.slice(-3).reverse().map(o => (
-                <tr key={o.id}>
-                  <td style={{ color: '#f59e0b' }}>{o.id}</td>
-                  <td>{o.item}</td>
-                  <td>₹{o.amount.toLocaleString()}</td>
-                  <td><span className="coins-badge">🪙 {o.coins}</span></td>
-                  <td><span className="badge badge-green">{o.status}</span></td>
-                </tr>
+                <div key={o.id} className="list-card">
+                  <div className="list-card-row">
+                    <span className="td-gold fw-bold">{o.id}</span>
+                    <span className="badge badge-green">{o.status}</span>
+                  </div>
+                  <div className="list-card-title">{o.item}</div>
+                  <div className="list-card-row">
+                    <span className="fw-bold">₹{o.amount.toLocaleString()}</span>
+                    <span className="coins-badge">🪙 {o.coins}</span>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
-          </div>
+            </div>
+          </>
         )}
       </div>
 
-      <div className="card" style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.12), rgba(217,119,6,0.08))', borderColor: 'rgba(245,158,11,0.2)' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div>
-            <h3 style={{ marginBottom: 4 }}>🪙 Your Coin Balance</h3>
-            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13 }}>Earn coins on every purchase. Redeem for discounts!</p>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: 40, fontWeight: 800, color: '#f59e0b' }}>{user.coins.toLocaleString()}</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>Vasudha Coins</div>
-          </div>
+      <div className="card coin-banner">
+        <div className="coin-banner-left">
+          <h3>🪙 Your Coin Balance</h3>
+          <p>Earn coins on every purchase. Redeem for discounts!</p>
+        </div>
+        <div className="coin-banner-right">
+          <div className="coin-banner-value">{user.coins.toLocaleString()}</div>
+          <div className="coin-banner-sub">Vasudha Coins</div>
         </div>
       </div>
     </Layout>

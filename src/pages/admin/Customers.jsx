@@ -20,7 +20,7 @@ export default function Customers() {
         <p>Manage all registered customers</p>
       </div>
 
-      <div className="stats-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+      <div className="stats-grid">
         <div className="stat-card blue">
           <div className="stat-icon">👥</div>
           <div className="stat-value">{customers.length}</div>
@@ -34,49 +34,69 @@ export default function Customers() {
         <div className="stat-card green">
           <div className="stat-icon">✅</div>
           <div className="stat-value">{customers.length}</div>
-          <div className="stat-label">Active Customers</div>
+          <div className="stat-label">Active</div>
         </div>
       </div>
 
       <div className="card">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', gap: 12 }}>
-          <h3 style={{ margin: 0 }}>All Customers</h3>
+        <div className="card-header-row">
+          <h3>All Customers</h3>
           <input
             type="text"
+            className="search-input"
             placeholder="Search customers..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            style={{ padding: '9px 14px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8, color: '#fff', fontSize: 14, outline: 'none', width: '100%', maxWidth: 220 }}
           />
         </div>
-        <div className="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Customer</th><th>Phone</th><th>Joined</th><th>Orders</th><th>Coins</th><th>Tier</th></tr>
-          </thead>
-          <tbody>
-            {filtered.map(c => (
-              <tr key={c.id}>
-                <td>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{ width: 36, height: 36, background: 'linear-gradient(135deg, #f59e0b, #d97706)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, flexShrink: 0 }}>
-                      {c.name[0]}
+
+        <div className="table-wrap desktop-only">
+          <table>
+            <thead>
+              <tr><th>Customer</th><th>Phone</th><th>Joined</th><th>Orders</th><th>Coins</th><th>Tier</th></tr>
+            </thead>
+            <tbody>
+              {filtered.map(c => (
+                <tr key={c.id}>
+                  <td>
+                    <div className="customer-cell">
+                      <div className="avatar-sm">{c.name[0]}</div>
+                      <div>
+                        <div className="fw-bold">{c.name}</div>
+                        <div className="td-muted" style={{ fontSize: 12 }}>{c.email}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div style={{ fontWeight: 600 }}>{c.name}</div>
-                      <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>{c.email}</div>
-                    </div>
+                  </td>
+                  <td className="td-muted">{c.phone}</td>
+                  <td className="td-muted">{c.joined}</td>
+                  <td><span className="badge badge-blue">{getOrderCount(c.id)} orders</span></td>
+                  <td><span className="coins-badge">🪙 {c.coins}</span></td>
+                  <td><span className={`badge ${c.coins >= 1000 ? 'badge-yellow' : 'badge-blue'}`}>{c.coins >= 1000 ? 'Gold' : 'Silver'}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="mobile-only">
+          {filtered.map(c => (
+            <div key={c.id} className="list-card">
+              <div className="list-card-row">
+                <div className="customer-cell">
+                  <div className="avatar-sm">{c.name[0]}</div>
+                  <div>
+                    <div className="fw-bold">{c.name}</div>
+                    <div className="td-muted" style={{ fontSize: 11 }}>{c.email}</div>
                   </div>
-                </td>
-                <td style={{ color: 'rgba(255,255,255,0.6)' }}>{c.phone}</td>
-                <td style={{ color: 'rgba(255,255,255,0.45)' }}>{c.joined}</td>
-                <td><span className="badge badge-blue">{getOrderCount(c.id)} orders</span></td>
-                <td><span className="coins-badge">🪙 {c.coins}</span></td>
-                <td><span className={`badge ${c.coins >= 1000 ? 'badge-yellow' : 'badge-blue'}`}>{c.coins >= 1000 ? 'Gold' : 'Silver'}</span></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </div>
+                <span className={`badge ${c.coins >= 1000 ? 'badge-yellow' : 'badge-blue'}`}>{c.coins >= 1000 ? 'Gold' : 'Silver'}</span>
+              </div>
+              <div className="list-card-row" style={{ marginTop: 8 }}>
+                <span className="td-muted" style={{ fontSize: 12 }}>{c.phone} · {c.joined}</span>
+                <span className="coins-badge">🪙 {c.coins}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </Layout>
