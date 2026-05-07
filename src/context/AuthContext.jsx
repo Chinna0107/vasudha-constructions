@@ -1,8 +1,9 @@
 import { createContext, useContext, useState } from 'react';
 import { invalidateCache } from '../hooks/useFetch';
+import { API_URL } from '../config';
 
 const AuthContext = createContext(null);
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API = API_URL;
 const token = () => localStorage.getItem('vasudha_token');
 
 export function AuthProvider({ children }) {

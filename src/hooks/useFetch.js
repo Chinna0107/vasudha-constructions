@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { API_URL } from '../config';
 
 const cache = new Map();
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API = API_URL;
 const token = () => localStorage.getItem('vasudha_token');
 
 export function useFetch(path, { skip = false } = {}) {
