@@ -1,17 +1,15 @@
 import { useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
+import { useCustomers } from '../../hooks/useCustomers';
 import Layout from '../../components/Layout';
 
 export default function Customers() {
-  const { customers, orders } = useAuth();
+  const { data: customers = [], loading } = useCustomers();
   const [search, setSearch] = useState('');
 
   const filtered = customers.filter(c =>
-    c.name.toLowerCase().includes(search.toLowerCase()) ||
-    c.email.toLowerCase().includes(search.toLowerCase())
+    c.full_name?.toLowerCase().includes(search.toLowerCase()) ||
+    c.email?.toLowerCase().includes(search.toLowerCase())
   );
-
-  const getOrderCount = (id) => orders.filter(o => o.customerId === id).length;
 
   return (
     <Layout role="admin">
@@ -41,35 +39,29 @@ export default function Customers() {
       <div className="card">
         <div className="card-header-row">
           <h3>All Customers</h3>
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search customers..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
+          <input type="text" className="search-input" placeholder="Search customers..."
+            value={search} onChange={e => setSearch(e.target.value)} />
         </div>
 
         <div className="table-wrap desktop-only">
           <table>
             <thead>
-              <tr><th>Customer</th><th>Phone</th><th>Joined</th><th>Orders</th><th>Coins</th><th>Tier</th></tr>
+              <tr><th>Customer</th><th>Mobile</th><th>Joined</th><th>Coins</th><th>Tier</th></tr>
             </thead>
             <tbody>
               {filtered.map(c => (
                 <tr key={c.id}>
                   <td>
                     <div className="customer-cell">
-                      <div className="avatar-sm">{c.name[0]}</div>
+                      <div className="avatar-sm">{c.full_name?.[0]}</div>
                       <div>
-                        <div className="fw-bold">{c.name}</div>
+                        <div className="fw-bold">{c.full_name}</div>
                         <div className="td-muted" style={{ fontSize: 12 }}>{c.email}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="td-muted">{c.phone}</td>
-                  <td className="td-muted">{c.joined}</td>
-                  <td><span className="badge badge-blue">{getOrderCount(c.id)} orders</span></td>
+                  <td className="td-muted">{c.mobile}</td>
+                  <td className="td-muted">{new Date(c.joined).toLocaleDateString()}</td>
                   <td><span className="coins-badge">🪙 {c.coins}</span></td>
                   <td><span className={`badge ${c.coins >= 1000 ? 'badge-yellow' : 'badge-blue'}`}>{c.coins >= 1000 ? 'Gold' : 'Silver'}</span></td>
                 </tr>
@@ -83,16 +75,16 @@ export default function Customers() {
             <div key={c.id} className="list-card">
               <div className="list-card-row">
                 <div className="customer-cell">
-                  <div className="avatar-sm">{c.name[0]}</div>
+                  <div className="avatar-sm">{c.full_name?.[0]}</div>
                   <div>
-                    <div className="fw-bold">{c.name}</div>
+                    <div className="fw-bold">{c.full_name}</div>
                     <div className="td-muted" style={{ fontSize: 11 }}>{c.email}</div>
                   </div>
                 </div>
                 <span className={`badge ${c.coins >= 1000 ? 'badge-yellow' : 'badge-blue'}`}>{c.coins >= 1000 ? 'Gold' : 'Silver'}</span>
               </div>
               <div className="list-card-row" style={{ marginTop: 8 }}>
-                <span className="td-muted" style={{ fontSize: 12 }}>{c.phone} · {c.joined}</span>
+                <span className="td-muted" style={{ fontSize: 12 }}>{c.mobile} · {new Date(c.joined).toLocaleDateString()}</span>
                 <span className="coins-badge">🪙 {c.coins}</span>
               </div>
             </div>
