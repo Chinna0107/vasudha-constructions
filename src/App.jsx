@@ -131,7 +131,7 @@ function AppShell() {
       )}
 
       {/* Page content */}
-      <main className="main-content">
+      <main className={`main-content${(!isAuthPage && user && !isMobile) ? ' has-sidebar' : ''}`}>
         <Routes>
           <Route path="/login" element={user ? <Navigate to={user.role === 'admin' ? '/admin/dashboard' : '/customer/dashboard'} /> : <Login />} />
           <Route path="/signup" element={user ? <Navigate to="/customer/dashboard" /> : <Signup />} />

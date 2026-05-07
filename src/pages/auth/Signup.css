@@ -1,16 +1,1 @@
-.su-right {
-  align-items: flex-start;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  overflow-y: auto;
-  border-radius: 0 28px 28px 0 !important;
-}
-
-.su-form {
-  gap: 16px !important;
-}
-
-.su-form .lr-input-box input {
-  padding-top: 13px;
-  padding-bottom: 13px;
-}
+/* Styles moved to Auth.css */

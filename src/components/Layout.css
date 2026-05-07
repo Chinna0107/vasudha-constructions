@@ -138,11 +138,14 @@
 
 /* ── Main content ──────────────────────────────────────────── */
 .main-content {
-  margin-left: 260px;
   flex: 1;
-  padding: 32px;
+  padding: 28px;
   min-height: 100vh;
   background: #0a1f20;
+}
+
+.main-content.has-sidebar {
+  margin-left: 260px;
 }
 
 /* ── Bottom nav ────────────────────────────────────────────── */
