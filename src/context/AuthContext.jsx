@@ -103,6 +103,16 @@ export function AuthProvider({ children }) {
     return res.ok;
   };
 
+  const blockCustomer = async (customerId, block) => {
+    const res = await fetch(`${API}/customers/${customerId}/block`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token()}` },
+      body: JSON.stringify({ block }),
+    });
+    if (res.ok) invalidateCache('/customers');
+    return res.ok;
+  };
+
   const forgotPassword = async (email) => {
     const res = await fetch(`${API}/auth/forgot-password`, {
       method: 'POST',
@@ -134,7 +144,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, sendOtp, verifyOtp, signup, logout, updateProfile, redeemCoins, addCoins, forgotPassword, resetPassword, changePassword }}>
+    <AuthContext.Provider value={{ user, login, sendOtp, verifyOtp, signup, logout, updateProfile, redeemCoins, addCoins, blockCustomer, forgotPassword, resetPassword, changePassword }}>
       {children}
     </AuthContext.Provider>
   );
